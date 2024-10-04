@@ -5,6 +5,7 @@ from pageObjects.addTicketPage import AddTicketPage
 from testData.addTicketPageData import AddTicketPageData
 from utilities.BaseClass import BaseClass
 
+
 class TestAddASupportTicket(BaseClass):
     def test_addASupportTicket(self, getUserData):
         log = self.getLogger()

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+
 class DashboardPage:
     # Constructor
     def __init__(self, driver):
@@ -19,7 +20,9 @@ class DashboardPage:
 
     def getUserManagementTab(self):
         return self.driver.find_element(*DashboardPage.userManagementTab)
+
     def getPermissionsTab(self):
         return self.driver.find_element(*DashboardPage.permissionsTab)
+
     def getLogoutTab(self):
         return self.driver.find_element(*DashboardPage.logoutTab)

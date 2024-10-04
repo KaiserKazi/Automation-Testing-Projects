@@ -1,11 +1,14 @@
 import pytest
 from selenium import webdriver
+
 driver = None
+
 
 def pytest_addoption(parser):
     parser.addoption(
         "--browser_name", action="store", default="chrome"
     )
+
 
 @pytest.fixture(scope="class")
 def setup(request):
@@ -23,13 +26,16 @@ def setup(request):
     driver.get("https://ticketing.learnsqa.com")
     # Maximizing the browser window
     driver.maximize_window()
+    # Applying implicit wait
+    driver.implicitly_wait(10)
     # Attaching local driver object to class object using the fixture
     request.cls.driver = driver
     yield
     driver.close()
 
-@pytest.mark.hookwrapper
-def pytest_runtest_makereport(item):
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
     """
         Extends the PyTest Plugin to take and embed screenshot in html report, whenever test fails.
         :param item:
@@ -43,13 +49,14 @@ def pytest_runtest_makereport(item):
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
             file_name = report.nodeid.replace("::", "_") + ".png"
-            file_name = 'reports/'+file_name
+            file_name = 'reports/' + file_name
             capture_screenshot(file_name)
             if file_name:
                 html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % file_name
                 extra.append(pytest_html.extras.html(html))
         report.extra = extra
+
 
 def capture_screenshot(name):
     global driver

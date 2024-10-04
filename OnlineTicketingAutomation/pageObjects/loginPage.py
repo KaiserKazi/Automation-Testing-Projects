@@ -18,17 +18,22 @@ class LoginPage:
     # Methods for obtaining locators in the test script
     def getEmailField(self):
         return self.driver.find_element(*LoginPage.emailField)
+
     def getPasswordField(self):
         return self.driver.find_element(*LoginPage.passwordField)
+
     def getRememberMeChcekbox(self):
         return self.driver.find_element(*LoginPage.rememberMeCheckbox)
+
     def getLoginButton(self):
-        #return self.driver.find_element(*LoginPage.loginButton)
+        # return self.driver.find_element(*LoginPage.loginButton)
         self.driver.find_element(*LoginPage.loginButton).click()
         dashboardPage = DashboardPage(self.driver)
-        #verticalMenu = VerticalMenu(self.driver)
+        # verticalMenu = VerticalMenu(self.driver)
         return dashboardPage
+
     def getInvalidEmailAlertText(self):
         return self.driver.find_element(*LoginPage.invalidEmailAlertText)
+
     def getWrongPasswordlAlertText(self):
         return self.driver.find_element(*LoginPage.wrongPasswordAlertText)
